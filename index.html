@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 级本科生导师名单 · 导师信息速查</title>
+<style>
+  :root{
+    --bg:#f6f7fb; --card:#ffffff; --ink:#15202b; --muted:#5b6b7c;
+    --line:#e3e8ef; --brand:#1d4ed8; --brand-soft:#e8efff; --accent:#0f766e;
+    --shadow:0 1px 2px rgba(16,24,40,.06), 0 8px 24px rgba(16,24,40,.06);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--brand); text-decoration:none}
+  a:hover{text-decoration:underline}
+  header{
+    background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 55%,#1d4ed8 100%);
+    color:#fff; padding:34px 20px 26px;
+  }
+  .wrap{max-width:1180px; margin:0 auto}
+  header h1{margin:0 0 6px; font-size:26px; letter-spacing:.5px}
+  header p{margin:0; color:#c7d6f5; font-size:14px}
+  .stats{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+  .stat{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.18);
+        border-radius:999px; padding:5px 14px; font-size:13px}
+  .toolbar{
+    position:sticky; top:0; z-index:30; background:rgba(246,247,251,.92);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:12px 20px;
+  }
+  .toolbar .inner{max-width:1180px; margin:0 auto; display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+  .search{position:relative; flex:1 1 320px; min-width:220px}
+  .search input{
+    width:100%; padding:11px 14px 11px 38px; border:1px solid var(--line); border-radius:10px;
+    font-size:15px; background:#fff; outline:none; transition:.15s;
+  }
+  .search input:focus{border-color:var(--brand); box-shadow:0 0 0 3px var(--brand-soft)}
+  .search svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.45}
+  select{
+    padding:11px 12px; border:1px solid var(--line); border-radius:10px; background:#fff;
+    font-size:14px; color:var(--ink); outline:none; min-width:130px;
+  }
+  .btn{
+    padding:10px 14px; border:1px solid var(--line); background:#fff; border-radius:10px;
+    font-size:14px; cursor:pointer; color:var(--ink); transition:.15s; white-space:nowrap;
+  }
+  .btn:hover{border-color:var(--brand); color:var(--brand)}
+  main{max-width:1180px; margin:0 auto; padding:18px 20px 60px}
+  .tagbar{display:flex; flex-wrap:wrap; gap:7px; margin:4px 0 16px}
+  .tagbar button{
+    border:1px solid var(--line); background:#fff; color:var(--muted);
+    border-radius:999px; padding:4px 12px; font-size:12.5px; cursor:pointer; transition:.15s;
+  }
+  .tagbar button:hover{color:var(--brand); border-color:var(--brand)}
+  .tagbar button.on{background:var(--brand); color:#fff; border-color:var(--brand)}
+  .count{color:var(--muted); font-size:13px; margin:0 0 12px}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:14px}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px 16px 14px; box-shadow:var(--shadow); display:flex; flex-direction:column;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .card:hover{transform:translateY(-2px); box-shadow:0 4px 16px rgba(16,24,40,.10), 0 12px 32px rgba(16,24,40,.08)}
+  .card .top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+  .idx{
+    font-size:12px; font-weight:700; color:var(--brand); background:var(--brand-soft);
+    border-radius:6px; padding:2px 7px; min-width:26px; text-align:center;
+  }
+  .card h3{margin:0; font-size:19px; letter-spacing:.5px}
+  .role{font-size:13px; color:var(--accent); font-weight:600}
+  .unit{font-size:12.5px; color:var(--muted); margin:4px 0 8px; display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+  .badge{
+    font-size:11px; color:#7c2d12; background:#ffedd5; border:1px solid #fed7aa;
+    border-radius:5px; padding:0 6px; line-height:17px;
+  }
+  .note{font-size:11.5px; color:#b45309; margin:-4px 0 8px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px}
+  .tags span{
+    font-size:12px; color:#334155; background:#f1f5f9; border-radius:6px; padding:2px 8px;
+  }
+  .summary{font-size:13.5px; color:#334155; margin:0 0 12px; flex:1}
+  .summary.clamp{display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden}
+  .links{display:flex; flex-wrap:wrap; gap:8px; align-items:center; border-top:1px dashed var(--line); padding-top:11px}
+  .links .mail{
+    font-size:12.5px; color:var(--muted); font-family:ui-monospace,Consolas,monospace;
+    overflow:hidden; text-overflow:ellipsis; max-width:100%;
+  }
+  .pill{
+    display:inline-flex; align-items:center; gap:5px; font-size:12.5px; border-radius:8px;
+    padding:5px 10px; border:1px solid var(--line); background:#fff; color:var(--brand); cursor:pointer;
+  }
+  .pill:hover{border-color:var(--brand); text-decoration:none}
+  .pill.home{background:var(--brand); border-color:var(--brand); color:#fff}
+  .pill.home:hover{opacity:.9}
+  .more{
+    align-self:flex-start; margin-top:8px; font-size:12.5px; color:var(--brand);
+    background:none; border:none; padding:0; cursor:pointer;
+  }
+  .empty{padding:60px 10px; text-align:center; color:var(--muted)}
+  footer{max-width:1180px; margin:0 auto; padding:0 20px 50px; color:var(--muted); font-size:12.5px}
+  .toast{
+    position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(20px);
+    background:#0f172a; color:#fff; padding:10px 18px; border-radius:10px; font-size:13.5px;
+    opacity:0; pointer-events:none; transition:.25s; z-index:100;
+  }
+  .toast.on{opacity:1; transform:translateX(-50%) translateY(0)}
+  mark{background:#fff3bf; color:inherit; border-radius:3px; padding:0 1px}
+  @media (max-width:640px){
+    header h1{font-size:21px}
+    .grid{grid-template-columns:1fr}
+    .toolbar{padding:10px 12px}
+    main{padding:14px 12px 40px}
+  }
+  @media print{
+    .toolbar,.tagbar,.toast,.more{display:none}
+    .card{break-inside:avoid; box-shadow:none}
+    body{background:#fff}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>2026 级本科生导师名单 · 导师信息速查</h1>
+    <p>数据整理自《2026本科生导师名单.pdf》，简介内容取自已公开的导师个人主页。</p>
+    <div class="stats">
+      <span class="stat">共 <strong id="s-total">0</strong> 位导师</span>
+      <span class="stat">覆盖 <strong id="s-units">0</strong> 个院系/单位</span>
+      <span class="stat">研究方向标签 <strong id="s-tags">0</strong> 个</span>
+      <span class="stat">点击「个人主页」直接查看老师自我介绍</span>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="inner">
+    <label class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="搜索姓名 / 研究方向 / 邮箱 / 单位，例如：具身智能、机器人、视觉" autocomplete="off">
+    </label>
+    <select id="unit"><option value="">全部单位</option></select>
+    <select id="title">
+      <option value="">全部职称</option>
+      <option>教授</option><option>副教授</option><option>助理教授</option>
+      <option>研究员</option><option>副研究员</option><option>助理研究员</option>
+    </select>
+    <button class="btn" id="dual">仅看双聘教师</button>
+    <button class="btn" id="reset">重置</button>
+    <button class="btn" id="print">打印 / 导出 PDF</button>
+  </div>
+</div>
+
+<main>
+  <div class="tagbar" id="tagbar"></div>
+  <p class="count" id="count"></p>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>没有匹配的导师，试试其他关键词。</div>
+</main>
+
+<footer>
+  <p>说明：姓名、职称、单位、邮箱与个人主页链接均提取自《2026本科生导师名单.pdf》；简介由导师个人主页的公开发布内容整理（抓取时间：2026 年），仅用于选导师时快速了解，请以老师主页与学院官方通知为准。若链接失效或信息有误，请以学院最新通知为准。</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DATA = {"generated":"2026 级本科生导师名单","source":"2026本科生导师名单.pdf","units":["人工智能学院","计算机学院（并行与分布式系统研究所）","数学科学学院","船舶海洋与建筑工程学院","集成电路学院（信息与电子工程学院）","自然科学研究院","软件学院","计算机学院","机械与动力工程学院","自然科学研究院／数学科学学院","未来媒体网络协同创新中心（CMIC）","电子信息与电气工程学院","人工智能学院／清源研究院","计算机学院／清源研究院","约翰·霍普克罗夫特计算机科学中心","物理与天文学院","自动化与感知学院","网络空间安全学院"],"advisors":[{"i":1,"n":"蔡盼盼","t":"副教授","u":"人工智能学院","dual":false,"e":"cai_panpan@sjtu.edu.cn","en":"","w":"https://cindycia.github.io","wn":"","g":["机器人规划","决策与强化学习","具身智能","基础模型"],"s":"上海交通大学人工智能学院副教授，Robot Planning and Learning Lab (RoPL) 负责人，同时任上海创智学院全职教师。博士毕业于新加坡国立大学，师从 David Hsu 教授。研究面向开放、复杂、动态环境下机器人的大规模决策与规划，把显式规划与学习、基础模型结合，近期聚焦机器人规划基础模型、部分可观测规划（POMDP）与通用移动操作。担任 IEEE Transactions on Robotics (T-RO) 副主编，RSS 2026 领域主席。"},{"i":2,"n":"曹钦翔","t":"副教授","u":"人工智能学院","dual":false,"e":"caoqinxiang@sjtu.edu.cn","en":"","w":"https://jhc.sjtu.edu.cn/people/members/qinxiang-cao.html","wn":"","g":["程序验证","形式化方法","程序语义","分离逻辑","智能合约"],"s":"上海交通大学人工智能学院副教授，本科毕业于北京大学哲学系（逻辑学）并辅修数学，2018 年于普林斯顿大学获计算机科学博士学位（导师 Andrew W. Appel）。研究方向为算法与程序正确性验证、程序语义、分离逻辑与并发程序验证；代表性成果包括 C 程序验证工具 VST-Floyd。招收对算法验证、智能合约验证与程序验证逻辑感兴趣的本硕博学生。"},{"i":3,"n":"陈颢天","t":"助理研究员","u":"人工智能学院","dual":false,"e":"haotianchen@sjtu.edu.cn","en":"","w":"https://hytn.github.io","wn":"","g":["自主智能体","大语言模型","AI4Research","长程任务自动化"],"s":"上海交通大学人工智能学院助理研究员，与严骏驰教授在 RethinkLab 合作。研究如何构建能够自动完成长周期、高强度、高创造性任务的 AI 系统，例如科研、工程与开发流程的自动化；方向涵盖自主智能体（Autonomous Agents）、大语言模型与 AI4Research。"},{"i":4,"n":"陈立鹏","t":"副教授","u":"人工智能学院","dual":false,"e":"lipeng.chen@sjtu.edu.cn","en":"","w":"https://lipeng-chen.github.io","wn":"","g":["机器人操作","具身智能","VLA 模型","世界模型","人机交互"],"s":"上海交通大学人工智能学院副教授，研究方向为具身智能与机器人学的交叉，包括机器人操作（视觉-语言-动作模型 VLA、多模态世界模型、数据驱动方法）、机器人运动控制（人形机器人、交互控制、自适应控制）以及人机交互。课题组长期招聘博士生、硕士生、研究助理、实习生与博士后。"},{"i":5,"n":"陈明达","t":"副教授","u":"人工智能学院","dual":false,"e":"mingdachen@sjtu.edu.cn","en":"","w":"https://mingdachen.github.io","wn":"","g":["大模型预训练","多模态","长时记忆","自然语言处理"],"s":"上海交通大学人工智能学院副教授，此前在 Meta 基础人工智能研究（FAIR）任研究科学家，主导预训练、多模态与记忆方向的研究，曾获 Google PhD Fellowship。目前主要研究大语言模型的预训练与多模态能力、模型记忆机制，并长期招收博士、硕士与实习生（要求具备 Transformer 微调经验，顶会论文为加分项）。"},{"i":6,"n":"陈思衡","t":"副教授","u":"人工智能学院","dual":false,"e":"sihengc@sjtu.edu.cn","en":"","w":"https://siheng-chen.github.io","wn":"","g":["图机器学习","协同机器学习","多智能体协同感知","信号处理"],"s":"上海交通大学人工智能学院长聘教轨副教授，上海人工智能实验室双聘研究员，博士毕业于卡内基梅隆大学。主要研究方向为协同机器学习与图机器学习，其图数据采样理论工作获 2018 年 IEEE 信号处理学会青年作者最佳论文奖，联合感知与预测技术已应用于 Uber 自动驾驶车队。目前的研究愿景是把 AI 智能体融入人类生活，长期招聘博士后、实习生与研究生。"},{"i":7,"n":"程远","t":"副教授","u":"人工智能学院","dual":false,"e":"cyuan328@sjtu.edu.cn","en":"","w":"https://cyuan328.github.io","wn":"","g":["计算光学","多模态感知","边缘智能","神经形态传感","大模型"],"s":"上海交通大学人工智能学院长聘教轨副教授，Computing Technology Laboratory (CLab) 负责人。2021 年于上海交通大学获博士学位，曾在清华大学 Sigma Lab 从事博士后研究、阿里巴巴达摩院任研究员、香港大学访问学者。团队位于计算方法与人工智能的交叉点，强调光学计算架构、大规模算法、边缘智能系统与神经形态传感器的协同设计，覆盖大模型、多模态感知与具身智能。"},{"i":8,"n":"崔少波","t":"助理教授","u":"人工智能学院","dual":false,"e":"shaobo.cui@sjtu.edu.cn","en":"","w":"https://shaobo.info","wn":"","g":["因果智能","世界模型","大语言模型","AI+医疗","多智能体"],"s":"上海交通大学人工智能学院长聘教轨助理教授、博士生导师，国家高层次青年人才、上海市海外高层次青年人才，DeepDelta Lab 负责人。博士毕业于 EPFL（导师 Boi Faltings 教授），本科与硕士分别毕业于北京航空航天大学和清华大学。研究聚焦因果智能、因果驱动的世界模型、大语言模型及其在医疗领域的前沿应用；曾获 G-Research PhD Prize、NAACL 杰出论文奖等荣誉。"},{"i":9,"n":"戴国浩","t":"副教授","u":"人工智能学院","dual":false,"e":"daiguohao@sjtu.edu.cn","en":"","w":"https://dai.sjtu.edu.cn","wn":"","g":["高能效智能计算","AI 芯片与体系结构","大模型系统"],"s":"上海交通大学人工智能学院副教授。研究方向为面向人工智能的高能效计算与软硬件协同设计，涉及 AI 芯片与体系结构、大模型训练与推理系统优化。详细介绍请见其个人主页。"},{"i":10,"n":"冯二虎","t":"助理教授","u":"人工智能学院","dual":false,"e":"fengerhu1@sjtu.edu.cn","en":"","w":"https://ipads.se.sjtu.edu.cn/pub/members/erhu_feng","wn":"","g":["操作系统","AI 加速器","大模型训练推理优化","系统安全"],"s":"上海交通大学人工智能学院助理教授，隶属 IPADS 实验室。研究方向包括操作系统、AI 加速器以及大模型训练与推理优化，成果发表于 OSDI、ISCA、ASPLOS、HPCA 等系统与体系结构顶会。代表性工作蓬莱 Enclave（Penglai TEE）已应用于上亿颗 RISC-V 芯片并集成到 openEuler。博士期间获首批国家自然科学基金青年学生项目资助、上海交通大学“学术之星”。"},{"i":11,"n":"符芳诚","t":"副教授","u":"人工智能学院","dual":false,"e":"ccchengff@sjtu.edu.cn","en":"","w":"https://ccchengff.github.io","wn":"","g":["机器学习系统","分布式训练","数据管理","联邦与隐私计算"],"s":"上海交通大学人工智能学院长聘教轨副教授、博士生导师。2018 年与 2023 年在北京大学分别获本科与博士学位（导师崔斌教授），此后在北京大学计算机学院任博雅博士后。研究聚焦机器/深度学习系统、人工智能与数据管理，在 SIGMOD、VLDB、OSDI、SOSP、ASPLOS、ICML、ICLR 等 CCF-A 会议/期刊发表论文 50 余篇，参与研发分布式深度学习系统河图（Hetu）、PowerFL 等系统。入选博新计划，获 ACM 中国优秀博士论文奖（全国奖）。"},{"i":12,"n":"郭宁","t":"助理研究员","u":"人工智能学院","dual":false,"e":"sjtu7439612@sjtu.edu.en","en":"邮箱后缀 PDF 中显示为 sjtu.edu.en，可能为 sjtu.edu.cn 的笔误","w":"https://gabriel-ning.github.io","wn":"","g":["具身智能","多模态感知","触觉操作","软体机器人","可变形物体仿真"],"s":"上海交通大学人工智能学院助理研究员。研究聚焦多模态与可真实部署的具身智能，特别关注触觉操作、可变形物体仿真与感知的融合，以提升机器人在复杂真实环境中的操作鲁棒性，推动软体机器人与智能系统发展。博士毕业于南方科技大学智能制造与机器人方向，硕士毕业于哈尔滨工业大学机械工程。"},{"i":13,"n":"金梦","t":"教授","u":"人工智能学院","dual":false,"e":"jinm@sjtu.edu.cn","en":"","w":"https://ai4earth.acemap.info","wn":"","g":["AI for Science","地球科学智能","时空数据挖掘","科学知识图谱"],"s":"上海交通大学人工智能学院教授。研究聚焦人工智能与地球系统科学的交叉（AI for Earth / AI for Science），利用时空大数据与知识图谱方法服务气候变化、碳中和等重大科学问题。详细介绍请见其个人主页。"},{"i":14,"n":"李彦玮","t":"助理教授","u":"人工智能学院","dual":false,"e":"liyanwei@sjtu.edu.cn","en":"","w":"https://yanwei-li.com","wn":"","g":["多模态基础模型","生成式 AI","图像/视频生成","世界模型","具身智能"],"s":"上海交通大学人工智能学院助理教授。2024 年于香港中文大学获博士学位（导师贾佳亚教授），因博士期间研究贡献获 2025 年世界人工智能大会（WAIC）云帆奖。研究聚焦多模态基础模型与生成式 AI 的下游应用，涵盖图像/视频生成、世界模型与具身智能机器人，近期代表工作包括 Seed 系列模型。"},{"i":15,"n":"李永露","t":"副教授","u":"人工智能学院","dual":false,"e":"yonglu_li@sjtu.edu.cn","en":"PDF 单元格换行显示不全，此处为 PDF 链接中的完整地址","w":"https://dirtyharrylyl.github.io","wn":"","g":["物理推理","具身智能","人-物交互理解","计算机视觉"],"s":"上海交通大学人工智能学院长聘教轨副教授，RHOS Lab 负责人，同时任职上海创智学院。研究物理推理（Physical Reasoning）、具身智能与人类活动理解，致力于构建推理驱动的智能系统，使智能体能够感知、推理并与物理世界交互；开源项目在 GitHub 上累计获得超过 1.3 万 star。曾获 ICRA 2025 最佳论文奖、MIT 评选 AI100 Young Pioneers、百度奖学金、两度 WAIC 云帆奖等，担任 NeurIPS、ICLR 领域主席。"},{"i":16,"n":"连文昭","t":"教授","u":"人工智能学院","dual":false,"e":"wenzhao.lian@ia.ac.cn","en":"","w":"https://lianwenzhao.github.io","wn":"","g":["机器人操作","模仿学习","强化学习","Sim-to-Real","统计推断"],"s":"上海交通大学人工智能学院教授，HIROL Lab 负责人。研究位于机器学习与机器人学的交叉，主要包括抓取与灵巧操作的机器人操作、模仿学习与强化学习、仿真到现实迁移，以及统计推断与大模型在机器人中的应用。"},{"i":17,"n":"林洲汉","t":"教授","u":"人工智能学院","dual":false,"e":"hantek@sjtu.edu.cn","en":"","w":"https://hantek.github.io","wn":"","g":["自然语言处理","机器学习算法","大模型理解","理论计算机"],"s":"上海交通大学人工智能学院教授，同时在约翰·霍普克罗夫特计算机科学中心任职，LUMIA（Language Understanding and Machine Intelligence Algorithms）实验室负责人。研究聚焦自然语言理解与机器学习算法及其理论基础。实验室长期招收有主动性的本科生、实习生以及 2027 级硕士/博士研究生。"},{"i":18,"n":"刘松桦","t":"助理教授","u":"人工智能学院","dual":false,"e":"liusonghua@sjtu.edu.cn","en":"","w":"https://huage001.github.io","wn":"","g":["扩散模型","图像与视频生成","数据高效学习","可控生成"],"s":"上海交通大学人工智能学院助理教授。研究聚焦扩散模型与生成式视觉，包括图像编辑、可控生成（OminiControl）、数据蒸馏与合成数据用于提升数据效率等。代表工作发表于 CVPR、ICML、NeurIPS 等会议。"},{"i":19,"n":"卢策吾","t":"教授","u":"人工智能学院","dual":false,"e":"lu-cw@cs.sjtu.edu.cn","en":"","w":"https://dnastorage.sjtu.edu.cn/info/1053/1168.htm","wn":"","g":["计算机视觉","机器人学习","具身智能","DNA 存储"],"s":"上海交通大学人工智能学院教授（计算机系），上海交通大学 DNA 存储研究中心成员。研究领域涵盖计算机视觉、深度学习与机器人学习，代表作包括人体姿态估计 RMPE、人-物交互检测、复杂序列理解等，成果发表于 Nature、Nature Machine Intelligence、TPAMI、CVPR 等。"},{"i":20,"n":"钱忱","t":"副教授","u":"人工智能学院","dual":false,"e":"qianc@sjtu.edu.cn","en":"","w":"https://qianc62.github.io","wn":"","g":["自然语言处理","大语言模型","智能体","知识工程"],"s":"上海交通大学人工智能学院长聘教轨副教授、博士生导师。2021 年于清华大学软件学院获博士学位（导师闻立杰教授），曾任清华大学计算机系 THUNLP 实验室“水木清华学者”博士后（合作导师孙茂松、刘知远教授），此前在腾讯任算法工程师并入选“技术精英”计划，博士期间访问新加坡国立大学。研究方向为自然语言处理、大语言模型与智能体。"},{"i":21,"n":"任麒冰","t":"助理教授","u":"人工智能学院","dual":false,"e":"renqibing@sjtu.edu.cn","en":"","w":"","wn":"PDF 名单中该老师无主页链接，此处为按其邮箱推断的个人主页（renqibing.github.io）","g":["自演化智能体","多模态智能体","AI 安全"],"s":"上海交通大学人工智能学院助理教授（即将入职）。于上海交通大学获博士学位（导师马利庄教授），吴文俊荣誉博士班班长。研究兴趣为自演化智能体系统、多模态智能体与 AI 安全，招收 2026 年 9 月入学的博士生、助理研究员、博士后以及对科研有主动性的本科生。个人主页：https://renqibing.github.io/"},{"i":22,"n":"孙健华","t":"助理教授","u":"人工智能学院","dual":false,"e":"gothic@sjtu.edu.cn","en":"","w":"https://gothicai.github.io/HomePage","wn":"","g":["物理 AI","物理世界表示","机器人操作","具身智能"],"s":"上海交通大学人工智能学院助理教授。2025 年于上海交通大学计算机系获博士学位（导师卢策吾教授），2020 年获上海交通大学计算机科学学士学位。研究聚焦 Physical AI——让 AI 学习真实世界概念的物理模型，使机器具备对世界的深入理解，从而感知、推理、与环境交互并与人类交流；研究覆盖解析形式的物理世界概念表示到学习算法。"},{"i":23,"n":"王延峰","t":"教授","u":"人工智能学院","dual":false,"e":"wangyanfeng622@sjtu.edu.cn","en":"","w":"https://cmic.sjtu.edu.cn/wangyanfeng","wn":"","g":["多媒体网络","人工智能产业应用","数字电视与视频"],"s":"上海交通大学人工智能学院教授、博士生导师，现任人工智能学院执行院长，上海交通大学产业创新研究院院长，上海市优秀学术带头人。长期从事未来媒体网络、数字电视与人工智能产业应用研究，主持多项国家级科研项目。"},{"i":24,"n":"王钰","t":"副教授","u":"人工智能学院","dual":false,"e":"yuwangsjtu@sjtu.edu.cn","en":"","w":"https://yuwangsjtu.github.io","wn":"","g":["大语言模型","智能体","人工智能基础","多模态"],"s":"上海交通大学人工智能学院副教授（2026 年起长聘副教授）。实验室长期招收计算机与电子信息领域的硕士、博士研究生与博士后，也欢迎对科研有兴趣的本科生加入，围绕人工智能与大模型相关方向开展研究。"},{"i":25,"n":"温睦宁","t":"助理研究员","u":"人工智能学院","dual":false,"e":"muningwen@sjtu.edu.cn","en":"","w":"https://scholar.google.com/citations?user=Zt1WFtQAAAAJ","wn":"","g":["多智能体系统","强化学习","大模型与智能体","具身智能"],"s":"上海交通大学人工智能学院助理研究员。研究聚焦多智能体系统、强化学习与大模型智能体的结合，及其在复杂决策与具身任务中的应用。详细介绍与代表工作请见其 Google Scholar 主页。"},{"i":26,"n":"温颖","t":"副教授","u":"人工智能学院","dual":false,"e":"ying.wen@sjtu.edu.cn","en":"","w":"https://yingwen.io","wn":"","g":["强化学习","多智能体系统","基础模型","智能体"],"s":"上海交通大学人工智能学院副教授。研究聚焦强化学习、多智能体系统与基础模型，涵盖多智能体协作与博弈、大模型强化学习训练、智能体系统等方向，并关注相关理论分析。个人主页提供中英文两个版本。"},{"i":27,"n":"汶川","t":"助理教授","u":"人工智能学院","dual":false,"e":"wenchuan@sjtu.edu.cn","en":"","w":"https://alvinwen428.github.io","wn":"","g":["机器人学习","模仿学习","具身智能","多模态"],"s":"上海交通大学人工智能学院长聘教轨助理教授。博士毕业于清华大学交叉信息研究院（IIIS，导师高阳教授），博士期间访问加州大学伯克利分校 BAIR（合作导师 Pieter Abbeel 教授、Xingyu Lin 博士），并与宾夕法尼亚大学 GRASP 实验室 Dinesh Jayaraman 教授密切合作。研究聚焦机器人学习、模仿学习与具身智能。"},{"i":28,"n":"吴超逸","t":"助理教授","u":"人工智能学院","dual":false,"e":"wtzxxxwcy02@sjtu.edu.cn","en":"","w":"https://chaoyi-wu.github.io","wn":"","g":["AI for Medicine","医学基础模型","多模态大模型","智能体系统"],"s":"上海交通大学人工智能学院助理教授，专注 AI for Medicine。研究聚焦语言与多模态医学基础模型，以及推动 AI4Medicine 边界的智能体系统设计，长期招收硕士与博士研究生。"},{"i":29,"n":"夏纫秋","t":"助理教授","u":"人工智能学院","dual":false,"e":"xiarenqiu@sjtu.edu.cn","en":"","w":"https://renqiux0302.github.io/xiarenqiu.github.io","wn":"","g":["多模态学习","大语言模型","文档与图表理解","数学推理","AIGC"],"s":"上海交通大学人工智能学院长聘教轨助理教授。于上海交通大学获计算机科学博士学位（导师贾维嘉教授、严骏驰教授），博士期间受上海人工智能实验室张博博士指导。研究聚焦大语言模型、多模态学习与 AIGC，具体包括多模态大模型的文档理解与图表分析、形式化语言数学推理，以及多智能体驱动的自动化科研；近期关注平面几何推理、形式化数学推理与物理问题建模。"},{"i":30,"n":"里元博","t":"副教授","u":"人工智能学院","dual":false,"e":"yxiangli@sjtu.edu.cn","en":"","w":"https://kam1107.github.io","wn":"","g":["3D 计算机视觉","计算机图形学","生成式 AI","多模态感知"],"s":"上海交通大学人工智能学院长聘教轨副教授（姓“相里”，名“元博”）。曾任康奈尔大学博士后（合作导师 Noah Snavely 教授），博士毕业于香港中文大学多媒体实验室。研究广泛覆盖三维计算机视觉、计算机图形学与生成式 AI，并关注如何通过视觉与语言之外的多种模态理解并与世界交互。"},{"i":31,"n":"谢伟迪","t":"副教授","u":"人工智能学院","dual":false,"e":"weidi@sjtu.edu.cn","en":"","w":"https://weidixie.github.io","wn":"","g":["计算机视觉","多模态","医学影像","视频理解"],"s":"上海交通大学人工智能学院副教授，同时任 OneX Intelligence 首席执行官；此前在牛津大学视觉几何组（VGG）学习与工作七年，获博士学位并任高级研究员。研究聚焦计算机视觉与多模态学习，涵盖视频理解、医学影像分析等方向。"},{"i":32,"n":"严骏驰","t":"教授","u":"人工智能学院","dual":false,"e":"yanjunchi@sjtu.edu.cn","en":"","w":"https://thinklab.sjtu.edu.cn","wn":"","g":["大模型","智能体","科学智能","具身智能","自动驾驶","量子 AI"],"s":"上海交通大学人工智能学院教授，SJTU-ReThinkLab 负责人。研究覆盖大模型、智能体（Agent）、科学智能、具身智能等前沿方向，并在自动驾驶、量子 AI、组合求解器、EDA、灵巧手、AI4Science 等应用方向布局；近期关注量子/PDE 启发的新型大模型架构与推理的形式化方法。长期招收助理研究员、博士后、博士生（尤其是已获创智、中关村学院等国家人工智能学院录取名额者）与本科生。"},{"i":33,"n":"杨理欣","t":"助理研究员","u":"人工智能学院","dual":false,"e":"siriusyang@sjtu.edu.cn","en":"","w":"https://lixiny.github.io","wn":"","g":["三维视觉","手-物操作建模","机器人模仿学习","具身智能"],"s":"上海交通大学人工智能学院助理研究员、博士生导师，机器视觉与智能组（MVIG）成员。2023 年于上海交通大学获计算机科学博士学位（导师卢策吾教授），硕士为上海交通大学机械工程。研究兴趣包括三维视觉与机器人学习，目前聚焦手部操作物体的建模与模仿学习。"},{"i":34,"n":"杨旸","t":"副教授","u":"人工智能学院","dual":false,"e":"angelayang@sjtu.edu.cn","en":"","w":"https://angelayangyang1.github.io","wn":"","g":["智能体","多智能体协作","大模型应用","推荐与决策"],"s":"上海交通大学人工智能学院副教授，Collaborative Agentic AI Research (CAAR) 团队负责人。本科毕业于清华大学物理系，2016 年于美国西北大学获博士学位并留校从事博士后研究，成果曾发表于 Physical Review Letters 与 Science；此后在 Meta 工作七年，升任 Senior Staff Research Scientist (E7)，2023–2025 年任 Business AI Agent 技术负责人，从零到一将其推向全球数百万中小企业。研究聚焦智能体与协作式智能体 AI。"},{"i":35,"n":"杨一博","t":"副教授","u":"人工智能学院","dual":false,"e":"yibo.yang@sjtu.edu.cn","en":"","w":"https://iboing.github.io","wn":"","g":["可靠机器学习","可解释神经网络","AI for Science","统一视觉理解"],"s":"上海交通大学人工智能学院副教授。2021 年于北京大学前沿交叉学科研究院数据科学中心获博士学位（导师林宙辰教授），此前在 KAUST 与京东探索研究院任研究科学家。研究兴趣包括可靠机器学习、可解释神经网络、AI for Science / 医疗健康与统一视觉理解，提出 CorDA 等被 huggingface/peft 集成的方法。"},{"i":36,"n":"张林峰","t":"助理教授","u":"人工智能学院","dual":false,"e":"zhanglinfeng@sjtu.edu.cn","en":"","w":"http://www.zhanglinfeng.tech","wn":"","g":["高效人工智能","模型压缩与加速","扩散模型","生成模型"],"s":"上海交通大学人工智能学院助理教授。研究聚焦高效人工智能与生成模型，包括扩散模型的快速采样与蒸馏、模型压缩与推理加速等方向，致力于让生成式模型在有限算力下高效运行。详细介绍请见其个人主页 zhanglinfeng.tech。"},{"i":37,"n":"张王优","t":"助理教授","u":"人工智能学院","dual":false,"e":"wyz-97@sjtu.edu.cn","en":"","w":"https://wangyou-zhang.github.io","wn":"","g":["计算机视觉","多模态感知","具身智能","三维视觉"],"s":"上海交通大学人工智能学院助理教授。研究方向为计算机视觉与多模态感知，涉及三维视觉、具身智能与机器人的感知理解。详细介绍与代表论文请见其个人主页。"},{"i":38,"n":"张小嫚","t":"副教授","u":"人工智能学院","dual":false,"e":"xm99sjtu@sjtu.edu.cn","en":"","w":"https://xiaoman-zhang.github.io","wn":"","g":["医学人工智能","生物医学基础模型","多模态医疗","AI 制药"],"s":"上海交通大学人工智能学院长聘教轨副教授。此前在哈佛大学医学院生物医学信息系从事博士后研究（合作导师 Pranav Rajpurkar 教授），博士毕业于上海交通大学，本科毕业于中国科学技术大学少年班学院。研究致力于构建“细胞的可预测 AI 模型”，通过模拟与实验闭环加速新药发现，缩小生物学研究与患者获益之间的差距。"},{"i":39,"n":"张娅","t":"教授","u":"人工智能学院","dual":false,"e":"ya_zhang@sjtu.edu.cn","en":"","w":"https://annzhanglion.github.io","wn":"","g":["计算机视觉","多媒体分析","医学影像分析","机器学习"],"s":"上海交通大学人工智能学院教授。长期从事计算机视觉、多媒体内容分析与机器学习研究，在图像/视频理解与医学影像分析等方向取得系列成果。详细介绍与代表论文请见其个人主页。"},{"i":40,"n":"张志鹏","t":"副教授","u":"人工智能学院","dual":false,"e":"zhipengzhang@sjtu.edu.cn","en":"","w":"https://zhipengzhang.cn","wn":"","g":["多模态感知","视频理解","自动驾驶","具身智能"],"s":"上海交通大学人工智能学院长聘教轨副教授（2025 年 4 月入职），AutoLab 负责人，实验室使命是“用 AI 自动化一切可被自动化的工作”。2022 年于中国科学院自动化研究所模式识别国家重点实验室（NLPR）获博士学位（导师胡卫明教授），博士期间在微软亚洲研究院实习（合作导师彭厚文博士）；此后在滴滴自动驾驶孵化的 KargBot 任高级研究员，主导自动驾驶关键 AI 项目，曾获“华为天才少年”。近期研究兴趣包括多模态感知与视频理解、自动驾驶与具身智能。"},{"i":41,"n":"赵波","t":"副教授","u":"人工智能学院","dual":false,"e":"Bozhaonanjing@gmail.com","en":"PDF 单元格显示被截断（ing@gmail.com），此处为 PDF 链接中的完整地址","w":"https://www.bozhao.me","wn":"","g":["具身智能","多模态大模型","数据智能","AI 基础模型"],"s":"上海交通大学人工智能学院副教授、博士生导师，国家级青年人才。曾担任北京智源研究院（BAAI）数据智能研究中心负责人、首席研究员；获爱丁堡大学博士学位与北京大学硕士学位。研究方向包括具身智能、多模态大模型与数据中心人工智能（DCAI），在 CVPR、ICLR、TPAMI、Nature 等发表论文数十篇（其中 7 篇 Oral/Spotlight），曾获 ICML 2022 杰出论文奖，长期担任 NeurIPS 等领域主席。"},{"i":42,"n":"赵沛霖","t":"教授","u":"人工智能学院","dual":false,"e":"peilinzhap@sjtu.edu.cn","en":"","w":"https://peilinzhao.github.io","wn":"","g":["机器学习","大模型","AI for Science","AI for Games","推荐系统"],"s":"上海交通大学人工智能学院教授。此前先后任职于腾讯、蚂蚁集团、新加坡 A*STAR 与罗格斯大学，2013 年于浙江大学获计算机科学博士学位。研究聚焦机器学习及其应用，包括大模型、AI for Science、AI for Games 与推荐系统，长期招收实习生、研究生与博士后（研究生优先从实习生中选拔）。"},{"i":43,"n":"钟志航","t":"副教授","u":"人工智能学院","dual":false,"e":"zhongzhihang@sjtu.edu.cn","en":"","w":"https://zzh-tech.github.io","wn":"","g":["神经渲染","3D 高斯泼溅","空间智能","视觉-语言模型"],"s":"上海交通大学人工智能学院副教授，空间多媒体实验室（Visionary Laboratory）负责人，此前为上海人工智能实验室研究员。于东京大学获计算机科学博士学位与精密工程硕士学位，本科毕业于浙江大学竺可桢学院。研究聚焦神经渲染与 3D 高斯泼溅、空间智能体与视觉-语言模型；招收硕士、博士、实习生与科研助理（27 级常规名额基本确定，28 级可提前联系，实习可选上海 AI Lab 或 Kiri Engine）。"},{"i":44,"n":"周晓","t":"副教授","u":"人工智能学院","dual":false,"e":"zhou_xiao@sjtu.edu.cn","en":"","w":"https://astaxanthin.github.io","wn":"","g":["智能体","多模态","强化学习","大模型应用"],"s":"上海交通大学人工智能学院副教授。此前在上海人工智能实验室从事博士后研究，博士毕业于清华大学自动化系，本科与硕士均毕业于西安交通大学自动化系。研究聚焦大模型智能体、多模态与强化学习等方向。"},{"i":45,"n":"邹应天","t":"助理教授","u":"人工智能学院","dual":false,"e":"yingtianzou@sjtu.edu.cn","en":"","w":"https://yingtian.world","wn":"","g":["世界模型","深度学习理论","具身智能","强化学习"],"s":"上海交通大学人工智能学院助理教授。2024 年于新加坡国立大学获计算机科学博士学位（导师 Wynne Hsu 教授），博士期间与 MIT 的 Kenji Kawaguchi 教授、新加坡国立大学李千骁教授密切合作，此后在华为任 TopMind。本科毕业于华中科技大学软件工程。研究致力于推进深度学习模型对世界的探索与建模，包括基础世界模型的理论与算法。"},{"i":46,"n":"陈海波","t":"教授","u":"计算机学院（并行与分布式系统研究所）","dual":true,"e":"haibochen@sjtu.edu.cn","en":"","w":"http://www.se.sjtu.edu.cn/Data/View/310","wn":"","g":["操作系统","系统软件","虚拟化","计算机体系结构"],"s":"上海交通大学人工智能学院教授（双聘），并行与分布式系统研究所（IPADS）核心成员。长期从事操作系统、系统软件与虚拟化研究，是我国系统软件领域的领军学者之一，成果多次获系统领域顶级会议最佳论文奖。详细介绍请见其个人主页。"},{"i":47,"n":"陈洛南","t":"教授","u":"数学科学学院","dual":true,"e":"lnchen@sjtu.edu.cn","en":"","w":"https://www.math.sjtu.edu.cn/Default/teachershow/tags/MDAwMDAwMDAwMLGuctyF2qF","wn":"","g":["计算系统生物学","生物信息学","动力学网络","疾病预警与预测","AI 赋能数据科学"],"s":"上海交通大学数学科学学院教授、人工智能学院双聘教授。长期从事应用数学、信息科学、人工智能与生命科学的交叉研究，建立并发展了“动力学与网络刻画的计算系统生物学和智慧医学”理论方法体系，提出动态网络标志物（DNB）与疾病临界预警方法、高维数据关联-时间信息转化（STI）理论等。作为通讯或共同通讯作者发表论文 400 余篇（H 指数 88，引用 28000 余次，爱思唯尔高被引），包括 Nature、Cell、Nature Methods、Nature Genetics、PNAS、PRL 等。"},{"i":48,"n":"程斌","t":"教授","u":"船舶海洋与建筑工程学院","dual":true,"e":"cheng_bin@sjtu.edu.cn","en":"","w":"https://naoce.sjtu.edu.cn/teachers/8926.html","wn":"","g":["结构工程","桥梁与结构监测","基础设施数字化运维","AI+土木"],"s":"上海交通大学船舶海洋与建筑工程学院特聘教授、博士生导师，人工智能学院双聘教授，国家杰出青年科学基金获得者、国家重点研发计划项目首席科学家、科学探索奖获得者；现任上海交通大学人力资源处副处长、上海市公共建筑和基础设施数字化运维重点实验室副主任。长期从事桥梁与结构工程、结构健康监测与基础设施数字化运维研究。"},{"i":49,"n":"顾昌展","t":"副教授","u":"集成电路学院（信息与电子工程学院）","dual":true,"e":"changzhan@sjtu.edu.cn","en":"","w":"https://icisee.sjtu.edu.cn/jiaoshiml/2725.html","wn":"","g":["射频毫米波","毫米波阵列","感知-通信一体化","天线与射频前端"],"s":"上海交通大学集成电路学院（信息与电子工程学院）副教授，人工智能学院双聘教师。IEEE MTT-S 杰出微波讲师（2026–2028），曾获 IEEE MTT-S 杰出青年工程师奖、IEEE Sensors Council 早期职业技术成就奖等；担任 IEEE T-MTT 等期刊 Associate Editor。研究方向包括射频毫米波微系统集成、毫米波阵列系统、全双工天线与射频前端、感知-通信一体化（ISAC）射频系统，发表期刊与会议论文 190 余篇，授权中美发明专利 28 项。"},{"i":50,"n":"胡丹","t":"教授","u":"自然科学研究院","dual":true,"e":"hudan80@sjtu.edu.cn","en":"","w":"https://ins.sjtu.edu.cn/people/dhu","wn":"","g":["生物物理","生物输运网络","复杂系统建模与仿真","膜动力学"],"s":"上海交通大学自然科学研究院 Distinguished Research Fellow，人工智能学院双聘教授。研究兴趣是通过建模、仿真与数据分析理解物理与生物系统，近期聚焦生物输运网络（如血管网络的自适应优化）、脉搏波，以及膜动力学中的稀有事件（包括抗菌肽作用机制）等课题。"},{"i":51,"n":"糜泽羽","t":"副教授","u":"软件学院","dual":true,"e":"yzmizeyu@sjtu.edu.cn","en":"","w":"https://ipads.se.sjtu.edu.cn/pub/members/zeyu_mi","wn":"","g":["操作系统","系统虚拟化","大模型系统","边缘智能"],"s":"上海交通大学软件学院副教授，人工智能学院双聘教师，IPADS 实验室成员。于上海交通大学获计算机科学博士学位（导师陈海波教授、臧斌宇教授），本科毕业于南京大学软件工程。研究兴趣包括大模型系统、操作系统与系统虚拟化，目前团队正在研发面向边缘侧的大模型训练、推理与智能体系统。"},{"i":52,"n":"钱彦旻","t":"研究员","u":"计算机学院","dual":true,"e":"qian-ym@cs.sjtu.edu.cn","en":"","w":"https://www.cs.sjtu.edu.cn/PeopleDetail.aspx?id=259","wn":"","g":["语音识别","说话人识别","语音大模型","多模态人机交互"],"s":"上海交通大学计算机学院研究员，人工智能学院双聘教师。长期从事语音信号处理与智能人机交互研究，研究方向包括语音识别、说话人识别、语音分离与语音大模型等，成果广泛应用于实际系统。详细介绍请见其个人主页。"},{"i":53,"n":"盛鑫军","t":"教授","u":"机械与动力工程学院","dual":true,"e":"xjsheng@sjtu.edu.cn","en":"","w":"https://me.sjtu.edu.cn/teacher_directory1/shengxinjun.html","wn":"","g":["机器人学","机械手与抓取","机器人控制","智能制造装备"],"s":"上海交通大学机械与动力工程学院教授，人工智能学院双聘教师。长期从事机器人学与机电控制研究，方向包括欠驱动机械手与抓取、机器人视觉与控制、智能制造装备等，获多项发明专利授权。"},{"i":54,"n":"许志钦","t":"副教授","u":"自然科学研究院／数学科学学院","dual":true,"e":"xuzhiqin@sjtu.edu.cn","en":"","w":"https://ins.sjtu.edu.cn/people/xuzhiqin","wn":"","g":["深度学习理论","大语言模型","AI for Science","多尺度神经网络"],"s":"上海交通大学自然科学研究院/数学科学学院教授，人工智能学院双聘教师，主持基金委优秀青年项目、科技部重点研发计划青年科学家项目等。2016 年于上海交通大学获应用数学博士学位，此后在纽约大学阿布扎比分校与柯朗研究所从事博士后研究。研究包括深度学习理论（频率原则、参数凝聚与嵌入原则、多尺度神经网络）、大语言模型记忆与推理机制、AI for Science（多尺度 PDE/ODE 求解，如 Fokker-Planck 问题与燃烧化学反应）。"},{"i":55,"n":"姚江超","t":"副教授","u":"未来媒体网络协同创新中心（CMIC）","dual":true,"e":"Sunarker@sjtu.edu.cn","en":"","w":"https://sunarker.github.io","wn":"","g":["可信机器学习","多模态学习","大模型与智能体","推荐系统"],"s":"上海交通大学未来媒体网络协同创新中心（CMIC）副教授，人工智能学院双聘教师，曾任上海人工智能实验室兼职研究科学家。研究聚焦可信与可靠的机器学习、多模态学习以及大模型智能体，关注模型在真实场景下的鲁棒性、公平性与泛化能力；2027 年招收硕士与博士研究生，长期开放科研助理岗位。"},{"i":56,"n":"翟广涛","t":"教授","u":"电子信息与电气工程学院","dual":true,"e":"zhaiguangtao@sjtu.edu.cn","en":"","w":"https://faculty.sjtu.edu.cn/zhaiguangtao/en/index.htm","wn":"","g":["多媒体信号处理","图像质量评价","视觉体验","视频处理"],"s":"上海交通大学电子信息与电气工程学院教授，人工智能学院双聘教师。担任 Elsevier 期刊 Displays 主编，Digital Signal Processing、Science China: Information Science 编委，IEEE CAS MSA 与 SPS IVMSP 成员。研究领域为多媒体信号处理，重点关注体验质量（QoE）与图像/视频质量评价，曾多次获 IEEE Trans. Multimedia 等最佳论文奖。"},{"i":57,"n":"张耀宇","t":"副教授","u":"自然科学研究院","dual":true,"e":"zhyy.sjtu@sjtu.edu.cn","en":"","w":"https://ins.sjtu.edu.cn/peoples/zhangyaoyu","wn":"","g":["生物统计","生物医学数据科学","统计机器学习"],"s":"上海交通大学自然科学研究院副教授，人工智能学院双聘教师。研究方向为生物统计与生物医学数据科学，运用统计机器学习方法分析高维生物医学数据。详细介绍请见其个人主页。"},{"i":58,"n":"郑双佳","t":"助理教授","u":"人工智能学院／清源研究院","dual":true,"e":"shuangjia.zheng@sjtu.edu.cn","en":"","w":"https://zhenglab.sjtu.edu.cn","wn":"","g":["AI 制药","药物-靶点相互作用","生成式分子设计","知识图谱"],"s":"上海交通大学人工智能学院助理教授（双聘），Zheng Lab 负责人。研究聚焦人工智能驱动的药物发现与生物医学数据挖掘，包括蛋白质-配体复合物结构预测（DynamicBind）、PROTAC 分子生成设计、天然产物生物合成路径导航、药物-靶点相互作用预测与生物医学知识图谱；代表性成果发表于 Nature Machine Intelligence、Nature Communications、Nature Catalysis 等期刊。"},{"i":59,"n":"周栋焯","t":"教授","u":"自然科学研究院","dual":true,"e":"zdz@sjtu.edu.cn","en":"","w":"https://ins.sjtu.edu.cn/people/zdz","wn":"","g":["计算神经科学","神经元网络建模","科学计算","脑信息处理"],"s":"上海交通大学自然科学研究院教授，人工智能学院双聘教师。研究兴趣为物理与生物科学问题的数学建模与科学计算，特别关注生物神经元网络结构与功能之间的关系、大规模皮层网络高效计算方法、脑信息处理机制，以及从实验数据中提取有效信息的数学工具与结构。"},{"i":60,"n":"鲍天怡","t":"助理研究员","u":"自然科学研究院","dual":true,"e":"tianyibao05@gmail.com","en":"","w":"https://scholar.google.com/citations?hl=zh-CN&user=HFeifSYAAAAJ","wn":"","g":["量子人工智能","量子计算与机器学习交叉"],"s":"上海交通大学自然科学研究院助理研究员，人工智能学院量子 AI 课程教师。研究聚焦量子计算与人工智能的交叉方向（Quantum AI）。详细介绍与代表工作请见其 Google Scholar 主页。"},{"i":61,"n":"邓志杰","t":"助理教授","u":"计算机学院／清源研究院","dual":true,"e":"ied@sjtu.edu.cn","en":"","w":"https://thudzj.github.io","wn":"","g":["生成模型","贝叶斯推断","谱方法","可信机器学习","AI for Science"],"s":"上海交通大学计算机学院/清源研究院副教授，人工智能学院双聘教师。2022 年于清华大学计算机系获博士学位（导师张钹院士、朱军教授），本科同样毕业于清华大学计算机系，曾访问卡内基梅隆大学机器学习系。主要研究机器学习与统计方法论，涵盖生成模型、谱方法与贝叶斯推断，并将方法应用于图像/语言/视频生成、具身智能、半监督/自监督学习、PDE 求解、不确定性量化与可信机器学习。"},{"i":62,"n":"江波","t":"副教授","u":"约翰·霍普克罗夫特计算机科学中心","dual":true,"e":"iang@sjtu.edu.cn","en":"","w":"https://jhc.sjtu.edu.cn","wn":"","g":["理论计算机科学","算法与计算复杂性","量子信息与计算"],"s":"上海交通大学约翰·霍普克罗夫特计算机科学中心（John Hopcroft Center）副教授，人工智能学院双聘教师。研究领域为理论计算机科学，涵盖算法与计算复杂性、量子信息与计算等方向。"},{"i":63,"n":"吴福源","t":"副研究员","u":"物理与天文学院","dual":true,"e":"fuyuan.wu@sjtu.edu.cn","en":"","w":"https://www.physics.sjtu.edu.cn/jsml/wufuyuan.html","wn":"","g":["AI for Fusion","激光聚变与等离子体物理","科学计算与实验设计"],"s":"上海交通大学物理与天文学院副研究员、博士生导师，人工智能学院双聘教师，上海市浦江人才计划获得者，国际原子能机构 AI4Fusion 国际协同研究项目首席科学研究员。主要从事人工智能赋能的激光聚变与等离子体物理理论模拟、实验设计和数据分析，特别是激光聚变双锥对撞点火方案（DCI 方案）的物理设计与实验分析；深度参与 MULTI 系列辐射磁流体力学程序的升级研制。在 Physical Review Letters、Nuclear Fusion、Journal of Computational Physics 等发表论文 30 余篇。"},{"i":64,"n":"杨学","t":"助理教授","u":"自动化与感知学院","dual":true,"e":"yangxue-2019-sjtu@sjtu.edu.cn","en":"","w":"https://yangxue.site","wn":"","g":["智能体","多模态大模型","空间智能","遥感影像解译"],"s":"上海交通大学自动化与感知学院助理教授、博士生导师，人工智能学院双聘教师，与严骏驰教授共同指导学生。研究兴趣包括智能体（Agentic AI）、多模态大模型、空间智能与遥感影像解译等，论文引用 13958 次。长期招收 2028 年春季/秋季入学硕士与博士研究生及实习生（提前进组实习为必要条件），担任 CVPR 2027 领域主席。"},{"i":65,"n":"张倬胜","t":"助理教授","u":"网络空间安全学院","dual":true,"e":"zhangzs@sjtu.edu.cn","en":"","w":"https://bcmi.sjtu.edu.cn","wn":"","g":["自然语言处理","大模型安全","可信与隐私保护","智能软件工程"],"s":"上海交通大学网络空间安全学院助理教授，人工智能学院双聘教师，BCMI 实验室成员。研究聚焦自然语言处理与大模型安全，涵盖大模型越狱攻击与防御、内容安全与水印、可信与隐私保护、智能软件工程等方向，成果发表于 ACL、EMNLP、ICLR、NeurIPS 等会议。"}]};
+
+const $ = s => document.querySelector(s);
+const grid = $('#grid'), q = $('#q'), unitSel = $('#unit'), titleSel = $('#title');
+const tagbar = $('#tagbar'), countEl = $('#count'), emptyEl = $('#empty'), toastEl = $('#toast');
+
+$('#s-total').textContent = DATA.advisors.length;
+$('#s-units').textContent = DATA.units.length;
+
+for (const u of DATA.units) {
+  const o = document.createElement('option'); o.value = u; o.textContent = u; unitSel.appendChild(o);
+}
+
+const tagCount = {};
+for (const a of DATA.advisors) for (const t of a.g) tagCount[t] = (tagCount[t] || 0) + 1;
+const tagList = Object.keys(tagCount).sort((x, y) => tagCount[y] - tagCount[x] || x.localeCompare(y, 'zh'));
+$('#s-tags').textContent = tagList.length;
+const activeTags = new Set();
+let dualOnly = false;
+for (const t of tagList.slice(0, 26)) {
+  const b = document.createElement('button');
+  b.textContent = t + ' ' + tagCount[t];
+  b.onclick = () => { activeTags.has(t) ? activeTags.delete(t) : activeTags.add(t); b.classList.toggle('on'); render(); };
+  tagbar.appendChild(b);
+}
+let tagsExpanded = false;
+const moreTags = document.createElement('button');
+moreTags.textContent = '更多方向 ▾';
+moreTags.onclick = () => {
+  tagsExpanded = !tagsExpanded;
+  if (tagsExpanded) {
+    for (const t of tagList.slice(26)) {
+      const b = document.createElement('button');
+      b.dataset.extra = '1';
+      b.textContent = t + ' ' + tagCount[t];
+      b.onclick = () => { activeTags.has(t) ? activeTags.delete(t) : activeTags.add(t); b.classList.toggle('on'); render(); };
+      tagbar.insertBefore(b, moreTags);
+    }
+    moreTags.textContent = '收起方向 ▴';
+  } else {
+    tagbar.querySelectorAll('button[data-extra]').forEach(b => b.remove());
+    moreTags.textContent = '更多方向 ▾';
+  }
+};
+tagbar.appendChild(moreTags);
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function highlight(text, terms) {
+  let out = esc(text);
+  for (const t of terms) {
+    if (!t) continue;
+    const re = new RegExp('(' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    out = out.replace(re, '<mark>$1</mark>');
+  }
+  return out;
+}
+function toast(msg) {
+  toastEl.textContent = msg; toastEl.classList.add('on');
+  clearTimeout(toast._t); toast._t = setTimeout(() => toastEl.classList.remove('on'), 1600);
+}
+async function copy(text) {
+  try { await navigator.clipboard.writeText(text); toast('已复制：' + text); }
+  catch (e) {
+    const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); ta.remove(); toast('已复制：' + text);
+  }
+}
+
+const expanded = new Set();
+function render() {
+  const raw = q.value.trim().toLowerCase();
+  const terms = raw ? raw.split(/\s+/) : [];
+  const unit = unitSel.value, title = titleSel.value;
+  const list = DATA.advisors.filter(a => {
+    if (dualOnly && !a.dual) return false;
+    if (unit && a.u !== unit) return false;
+    if (title && a.t !== title) return false;
+    if (activeTags.size && ![...activeTags].every(t => a.g.includes(t))) return false;
+    if (!terms.length) return true;
+    const hay = [a.n, a.t, a.u, a.e, a.w, a.g.join(' '), a.s].join(' ').toLowerCase();
+    return terms.every(t => hay.includes(t));
+  });
+
+  countEl.textContent = '显示 ' + list.length + ' / ' + DATA.advisors.length + ' 位导师'
+    + (activeTags.size ? '（方向筛选：' + [...activeTags].join(' + ') + '）' : '');
+  emptyEl.hidden = list.length > 0;
+
+  grid.innerHTML = list.map(a => {
+    const open = expanded.has(a.i);
+    const cls = open ? 'summary' : 'summary clamp';
+    const tags = a.g.map(t => `<span>${esc(t)}</span>`).join('');
+    const home = a.w ? `<a class="pill home" href="${esc(a.w)}" target="_blank" rel="noopener">个人主页 ↗</a>` : `<span class="pill" style="color:#94a3b8">无主页链接</span>`;
+    const site = a.w ? new URL(a.w).hostname : '';
+    return `<article class="card">
+      <div class="top"><span class="idx">${a.i}</span><h3>${highlight(a.n, terms)}</h3><span class="role">${esc(a.t)}</span></div>
+      <div class="unit">${highlight(a.u, terms)}${a.dual ? '<span class="badge">双聘教师</span>' : ''}</div>
+      ${a.en ? `<div class="note">⚠ ${esc(a.en)}</div>` : ''}
+      ${a.wn ? `<div class="note">ⓘ ${esc(a.wn)}</div>` : ''}
+      <div class="tags">${tags}</div>
+      <p class="${cls}">${highlight(a.s, terms)}</p>
+      ${a.s.length > 120 ? `<button class="more" data-i="${a.i}">${open ? '收起 ▲' : '展开全文 ▼'}</button>` : ''}
+      <div class="links">
+        <button class="pill" data-mail="${esc(a.e)}">✉ ${esc(a.e)}</button>
+        ${home}
+        ${site ? `<span class="mail">${esc(site)}</span>` : ''}
+      </div>
+    </article>`;
+  }).join('');
+
+  grid.querySelectorAll('[data-mail]').forEach(b => b.onclick = () => copy(b.dataset.mail));
+  grid.querySelectorAll('.more').forEach(b => b.onclick = () => {
+    const i = +b.dataset.i;
+    expanded.has(i) ? expanded.delete(i) : expanded.add(i);
+    render();
+  });
+}
+
+q.addEventListener('input', render);
+unitSel.addEventListener('change', render);
+titleSel.addEventListener('change', render);
+$('#reset').onclick = () => {
+  q.value = ''; unitSel.value = ''; titleSel.value = '';
+  activeTags.clear(); dualOnly = false;
+  $('#dual').style.borderColor = ''; $('#dual').style.color = '';
+  tagbar.querySelectorAll('button').forEach(b => b.classList.remove('on'));
+  render();
+};
+$('#dual').onclick = () => {
+  dualOnly = !dualOnly;
+  $('#dual').style.borderColor = dualOnly ? '#1d4ed8' : '';
+  $('#dual').style.color = dualOnly ? '#1d4ed8' : '';
+  $('#dual').textContent = dualOnly ? '只看双聘教师 ✓' : '仅看双聘教师';
+  render();
+};
+$('#print').onclick = () => window.print();
+render();
+</script>
+</body>
+</html>
